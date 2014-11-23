@@ -1,0 +1,18 @@
+{
+  "name": "release_stories",
+  "version": "0.0.1",
+  "description": "Map releases to stories and vice versa",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.10.2",
+    "mongoose": "~3.8.19",
+    "body-parser": "~1.9.2",
+    "request": "~2.48.0",
+    "async": "~0.9.0"
+  }
+}

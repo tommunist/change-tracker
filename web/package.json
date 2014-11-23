@@ -1,0 +1,15 @@
+{
+  "name": "changesets_web",
+  "version": "0.0.1",
+  "description": "Map releases to stories and vice versa",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.10.2",
+    "body-parser": "~1.9.2"
+  }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html class="js no-touch webp gumby-no-touch" lang="en" itemscope="" itemtype="http://schema.org/Product"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Releases</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
+         However, there is a blank style.css in the css directory should you prefer -->
+    <link rel="stylesheet" href="http://gumbyframework.com/css/gumby.css?1379423984">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    
+<style>
+    .btn,.drawer { margin-bottom:10px; }
+    .drawer { text-align: center; }
+    .logo img {
+        padding-top: 3px;
+    }
+    h2.lead { 
+        color: white; 
+        padding-bottom: 10px;
+    }
+    h4.lead {
+     padding-top: 30px;
+     margin-bottom:5px; 
+    }
+    .tab-nav > li a{
+        color: white;
+        opacity: 0.5;
+        background: #3360AC;
+    }
+    .tab-nav > li a:hover{
+        background: #3360AC;
+        opacity:0.7;
+    }
+    
+    .tab-nav > li.active a{
+        color: white;
+        opacity: 1;
+        background: #3360AC;
+    }
+    #navigator {
+
+        background-color: #334966
+    }
+
+    
+</style>
+</head>
+<body>
+
+<div>
+        <section class="pill tabs">
+            <ul class="tab-nav">
+                <li class="active"><a>AS_50982</a></li>
+                <li><a>AS_50912</a></li>
+                <li><a>AS_50900</a></li>
+            </ul>
+            <div class="tab-content active">
+                <div id="tracked">
+
+                </div>
+                <div id="untracked">
+                    <h4>Untracked Commits</h4>
+                    <ul></ul>
+                </div>
+
+
+            </div>
+            <div class="tab-content">
+                <p>and again TEST ME</p>
+            </div>
+        </section>
+    
+</div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    var storyByProject = {};
+    $.ajax('http://localhost:8080/api/release/AS_59593', 
+         {
+            error: function(err) { console.log(JSON.stringify(err));},
+            success: function (data) {
+              $('#changeSet').append('<ul>');  
+              $.each(data.changeset, function(index, story){
+                console.log(story);
+
+                var project_id = story.project_id || 'untracked';
+                
+                if(project_id === 'untracked') {
+                  var untrackedDiv = $('#untracked ul');
+                  $.each(story.commits, function(index,commit) {
+                    untrackedDiv.append('<li id="commit_' + commit.sha + '"><a href="https://github.com/intentmedia/code/commit/' + commit.sha + '" target="_blank">' + commit.sha + '</a> ' + commit.message + '</li>');   
+                  })
+                   
+                } else {
+                    var project_div = $('#project_' + project_id + ' ul');
+                    if(project_div.length === 0) {
+                      $('#tracked').append(
+                        '<div id="project_' + project_id + '"><h4>Project ' + project_id + '</h4><ul></ul></div>'
+                        );
+                      project_div = $('#' + project_id + ' ul');
+                    }
+
+                  project_div.append('<li id="' + story.id + '"><a href="https://www.pivotaltracker.com/n/projects/' + project_id + '/stories/' + story.id + '">' + story.id + '</a> ' + story.name + '</li>');
+                }
+
+              });
+              
+              $('#changeSet').append('</ul>');
+
+            }
+         }
+      );
+
+  </script>
+    <!--
+    Include gumby.js followed by UI modules followed by gumby.init.js
+    Or concatenate and minify into a single file -->
+    
+    
+  
+
+</body></html>
